@@ -8,40 +8,43 @@
 	</head>
 	<body>
 		<main class="weather-app">
-			<p class="eyebrow">YupWeather</p>
-			<h1>Weather, wherever you are.</h1>
-			<form action="/" method="get" class="search-form">
-				<label for="city">Search by city</label>
-				<div class="search-row">
-					<input
-						id="city"
-						name="city"
-						value="<%= city || '' %>"
-						placeholder="e.g. Lisbon"
-						required
-					/>
-					<button type="submit">Search</button>
-				</div>
-			</form>
-
-			<% if (error) { %>
-			<p class="message error" role="alert"><%= error %></p>
-			<% } else if (weather) { %>
-			<section class="weather-card" aria-live="polite">
-				<p class="location">
-					<%= weather.city %><% if (weather.country) { %>, <%= weather.country
-					%><% } %>
-				</p>
-				<p class="condition"><%= weather.description %></p>
-				<p class="temperature"><%= weather.temperature %>°C</p>
-				<p class="details">
-					Feels like <%= weather.feelsLike %>°C | Humidity <%= weather.humidity
-					%>%
-				</p>
-			</section>
-			<% } else { %>
-			<p class="message">Enter a city to see the current weather.</p>
-			<% } %>
+			<div class="search-container">
+				<p class="eyebrow">YupWeather</p>
+				<h1>Weather, wherever you are.</h1>
+				<form action="/" method="get" class="search-form">
+					<label for="city">Search by city</label>
+					<div class="search-row">
+						<input
+							id="city"
+							name="city"
+							value="<%= city || '' %>"
+							placeholder="e.g. Lisbon"
+							required
+						/>
+						<button type="submit">Search</button>
+					</div>
+				</form>
+			</div>
+			<div class="background-weather background-image">
+				<% if (error) { %>
+				<p class="message error" role="alert"><%= error %></p>
+				<% } else if (weather) { %>
+				<section class="weather-card" aria-live="polite">
+					<p class="location">
+						<%= weather.city %>, <% if (weather.country) { %>  <%=
+						weather.country%> <% } %>
+					</p>
+					<p class="condition"><%= weather.description %></p>
+					<p class="temperature"><%= weather.temperature %>°C</p>
+					<p class="details">
+						Feels like <%= weather.feelsLike %>°C | Humidity <%=
+						weather.humidity %>
+					</p>
+				</section>
+				<% } else { %>
+				<p class="message">Enter a city to see the current weather.</p>
+				<% } %>
+			</div>
 		</main>
 	</body>
 </html>
