@@ -9,8 +9,18 @@
 	<body>
 		<main class="weather-app">
 			<div class="search-container">
-				<p class="eyebrow">YupWeather</p>
-				<h1>Weather, wherever you are.</h1>
+				<p class="prediction">prediction</p>
+				<p class="humidity"></p>
+				<p class="wind">wind</p>
+
+				<div class="forecast">
+					<div class="forecast-day">
+						<p class="day">day</p>
+						<image class="icon" src="" alt="Weather icon" />
+						<p class="temperature">temperature</p>
+					</div>
+				</div>
+
 				<form action="/" method="get" class="search-form">
 					<label for="city">Search by city</label>
 					<div class="search-row">
@@ -30,15 +40,23 @@
 				<p class="message error" role="alert"><%= error %></p>
 				<% } else if (weather) { %>
 				<section class="weather-card" aria-live="polite">
+					<p class="day"><%= weather.day %></p>
+					<p class="date"><%= weather.date %></p>
 					<p class="location">
-						<%= weather.city %>, <% if (weather.country) { %>  <%=
-						weather.country%> <% } %>
+						<%= weather.city %> <% if (weather.country) { %> <%=weather.country
+						%> <% } %>
 					</p>
-					<p class="condition"><%= weather.description %></p>
+
+					<% if (weather.icon && weather.icon !== 'Unavailable') { %>
+					<img
+						class="icon"
+						src="https://openweathermap.org/img/wn/<%= weather.icon %>@2x.png"
+						alt="<%= weather.description %>"
+					/>
+					<% } %>
 					<p class="temperature"><%= weather.temperature %>°C</p>
-					<p class="details">
-						Feels like <%= weather.feelsLike %>°C | Humidity <%=
-						weather.humidity %>
+					<p class="condition" alt="Weather condition">
+						<%= weather.description %>
 					</p>
 				</section>
 				<% } else { %>

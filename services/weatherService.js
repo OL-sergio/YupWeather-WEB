@@ -21,7 +21,7 @@ const getWeatherData = async (city) => {
 			},
 			timeout: 10000,
 		});
-
+		console.log('Weather API response:', response.data); // Log the entire response data for debugging
 		return normalizeWeather(response.data);
 	} catch (error) {
 		throw new Error(error.response?.data?.message || 'Weather fetch failed');

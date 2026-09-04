@@ -13,18 +13,23 @@
 
 body {
 	margin: 0;
-	min-height: 100vh;
+	min-height: 100svh;
 	background: var(--paper);
 	color: var(--ink);
 	font-family: Georgia, 'Times New Roman', serif;
+	display: grid;
+	place-items: center;
+	overflow: hidden;
 }
 
 .weather-app {
 	display: flex;
 	flex-direction: row-reverse;
-	width: min(calc(100% - 2rem), 70rem);
-	margin: 0 auto;
-	padding: 12vh 0 2rem;
+	background: #222831;
+	width: min(calc(100% - 2rem), 1000px);
+	max-height: calc(100svh - 2rem);
+	border-radius: 40px;
+	overflow: hidden;
 }
 
 .eyebrow {
@@ -38,9 +43,9 @@ body {
 }
 
 h1 {
-	max-width: 12ch;
+	max-width: 26ch;
 	margin: 0 0 2.5rem;
-	font-size: clamp(2.8rem, 8vw, 5.5rem);
+	font-size: clamp(4.8rem, 3vw, 4.5rem);
 	line-height: 0.95;
 }
 
@@ -58,7 +63,7 @@ h1 {
 
 input,
 button {
-	border: 1px solid var(--line);
+	border: 1px solid var(--ink);
 	border-radius: 0.25rem;
 	padding: 0.85rem 1rem;
 	font:
@@ -82,7 +87,7 @@ button {
 }
 
 .message {
-	color: var(--muted);
+	color: var(--ink);
 	font:
 		0.95rem Arial,
 		sans-serif;
@@ -93,9 +98,9 @@ button {
 }
 
 .weather-card {
-	margin-top: 20rem;
+	margin: 0;
 	padding: 1.5rem;
-	width: 500px;
+	width: 100%;
 }
 
 .location {
@@ -104,7 +109,7 @@ button {
 }
 .condition {
 	margin: 0.35rem 0 1.5rem;
-	color: var(--muted);
+	color: var(--IN);
 	text-transform: capitalize;
 }
 
@@ -116,19 +121,17 @@ button {
 }
 
 .details {
-	color: var(--muted);
+	color: var(--ink);
 	font:
 		0.85rem Arial,
 		sans-serif;
 }
 .search-container {
 	border: 0px solid var(--line);
-	width: 500px;
-	margin: 0 -120px 0 0;
 	padding: 5rem;
 	border-radius: 0px 40px 40px 0px;
 	background: var(--panel);
-	width: 100%;
+	width: 50%;
 }
 
 .background-image {
@@ -141,10 +144,25 @@ button {
 .background-weather {
 	border: 0px solid var(--line);
 	border-radius: 40px 40px 40px 40px;
-	padding: 12vh 0 4rem;
+	padding: 4rem 0;
+	width: 50%;
 }
 
 @media (max-width: 30rem) {
+	.weather-app {
+		flex-direction: column;
+		max-height: calc(100svh - 1rem);
+	}
+
+	.search-container,
+	.background-weather {
+		width: 100%;
+	}
+
+	.search-container {
+		padding: 2rem;
+	}
+
 	.search-row {
 		flex-direction: column;
 	}
