@@ -20,13 +20,22 @@ const normalizeWeather = (data = {}) => {
 				weekday: 'long',
 				timeZone: 'UTC',
 			}) ?? 'Unavailable',
-		date:
-			apiDate?.toLocaleDateString('en-US', {
-				day: 'numeric',
-				month: 'long',
-				year: 'numeric',
-				timeZone: 'UTC',
-			}) ?? 'Unavailable',
+		date: apiDate
+			? (() => {
+					const parts = new Intl.DateTimeFormat('en-US', {
+						day: 'numeric',
+						month: 'long',
+						year: 'numeric',
+						timeZone: 'UTC',
+					}).formatToParts(apiDate);
+					const values = Object.fromEntries(
+						parts
+							.filter(({ type }) => type !== 'literal')
+							.map(({ type, value }) => [type, value]),
+					);
+					return `${values.day} ${values.month}  ${values.year}`;
+				})()
+			: 'Unavailable',
 		country: data.sys?.country ?? 'Unavailable',
 		temperature: data.main?.temp ?? 'Unavailable',
 		feelsLike: data.main?.feels_like ?? 'Unavailable',

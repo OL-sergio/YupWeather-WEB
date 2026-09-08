@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { getWeatherData } = require('../services/weatherService');
+const {  getWeatherDay , getWeatherForecast } = require('../services/weatherService');
 
 router.get('/', async (req, res) => {
 	const city = String(req.query.city || '').trim();
@@ -10,8 +10,9 @@ router.get('/', async (req, res) => {
 	}
 
 	try {
-		const data = await getWeatherData(city);
-		res.render('index', { weather: data, error: null, city });
+		const dayData = await getWeatherDay(city);
+		const forecastData = await getWeatherForecast(city);
+		res.render('index', { weather: dayData, forecast : forecastData, error: null, city });
 	} catch (err) {
 		res
 			.status(502)

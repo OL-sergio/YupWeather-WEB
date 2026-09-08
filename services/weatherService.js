@@ -1,16 +1,19 @@
 const axios = require('axios');
-const { normalizeWeather } = require('../models/models');
+const { normalizeWeather } = require('../models/day');
 
 //https://api.openweathermap.org/data/2.5/forecast?q={city name}&appid={API key}
 //https://api.openweathermap.org/data/2.5/weather?q={city name}&appid={API key}
 
-const getWeatherData = async (city) => {
-	const API_KEY = process.env.WEATHER_API_KEY;
-	const URL = 'https://api.openweathermap.org/data/2.5/weather';
+const API_KEY = process.env.WEATHER_API_KEY;
+const URL_WEATHER = 'https://api.openweathermap.org/data/2.5/weather';
+const URL_FORECAST = 'https://api.openweathermap.org/data/2.5/forecast';
 
+const getWeatherDay = async (city) => {
 	if (!API_KEY) {
 		throw new Error('Weather API key is not configured');
 	}
+
+	const URL = URL_WEATHER;
 
 	try {
 		const response = await axios.get(URL, {
@@ -21,11 +24,34 @@ const getWeatherData = async (city) => {
 			},
 			timeout: 10000,
 		});
-		console.log('Weather API response:', response.data); // Log the entire response data for debugging
+		console.log('Weather API day response:', response.data); // Log the entire response data for debugging
 		return normalizeWeather(response.data);
 	} catch (error) {
 		throw new Error(error.response?.data?.message || 'Weather fetch failed');
 	}
 };
 
-module.exports = { getWeatherData };
+const getWeatherForecast = async (city) => {
+
+	if (!API_KEY) {
+		throw new Error('Weather API key is not configured');
+	}
+	const URL = URL_FORECAST;
+
+	try {
+		const response = await axios.get(URL, {
+			params: {
+				q: city,
+				appid: API_KEY,
+				units: 'metric',
+			},
+			timeout: 10000,
+		});
+		console.log('Weather API forecast response:', response.data); // Log the entire response data for debugging
+		return normalizeWeather(response.data);
+	} catch (error) {
+		throw new Error(error.response?.data?.message || 'Weather fetch failed');
+	}
+};
+
+module.exports = { getWeatherDay, getWeatherForecast };

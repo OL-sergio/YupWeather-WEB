@@ -10,7 +10,7 @@
 		<main class="weather-app">
 			<div class="search-container">
 				<p class="prediction">prediction</p>
-				<p class="humidity"></p>
+				<p class="humidity">humidity</p>
 				<p class="wind">wind</p>
 
 				<div class="forecast">
@@ -43,10 +43,12 @@
 					<p class="day"><%= weather.day %></p>
 					<p class="date"><%= weather.date %></p>
 					<p class="location">
-						<%= weather.city %> <% if (weather.country) { %> <%=weather.country
+						<img class="location-icon" src="/images/pin.png" alt="" />
+						<%= weather.city %> <% if (weather.country) { %> , <%=weather.country
 						%> <% } %>
 					</p>
 
+					<div class="divider"></div>
 					<% if (weather.icon && weather.icon !== 'Unavailable') { %>
 					<img
 						class="icon"
