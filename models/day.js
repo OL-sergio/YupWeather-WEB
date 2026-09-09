@@ -10,7 +10,16 @@ const getApiDate = (data = {}) => {
 	return Number.isNaN(date.getTime()) ? null : date;
 };
 
-const normalizeWeather = (data = {}) => {
+const formatTemp = (temp) => {
+	if (temp === null || temp === undefined) return 'Unavailable';
+	try {
+		return Math.round(temp);
+	} catch {
+		return 'Unavailable';
+	}
+}
+
+const normalizeWeatherDay = (data = {}) => {
 	const apiDate = getApiDate(data);
 
 	return {
@@ -37,13 +46,15 @@ const normalizeWeather = (data = {}) => {
 				})()
 			: 'Unavailable',
 		country: data.sys?.country ?? 'Unavailable',
-		temperature: data.main?.temp ?? 'Unavailable',
+		temperature: formatTemp(data.main?.temp),
 		feelsLike: data.main?.feels_like ?? 'Unavailable',
 		humidity: data.main?.humidity ?? 'Unavailable',
+		pressure: data.main?.pressure ?? 'Unavailable',
 		description: data.weather?.[0]?.description ?? 'Unavailable',
 		icon: data.weather?.[0]?.icon ?? 'Unavailable',
 		wind: data.wind?.speed ?? 'Unavailable',
+		clouds: data.clouds?.all ?? 'Unavailable',
 	};
 };
 
-module.exports = { normalizeWeather };
+module.exports = { normalizeWeatherDay };

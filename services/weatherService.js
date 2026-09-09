@@ -1,5 +1,6 @@
 const axios = require('axios');
-const { normalizeWeather } = require('../models/day');
+const { normalizeWeatherDay } = require('../models/day');
+const { normalizeWeatherForecast } = require('../models/forecast');
 
 //https://api.openweathermap.org/data/2.5/forecast?q={city name}&appid={API key}
 //https://api.openweathermap.org/data/2.5/weather?q={city name}&appid={API key}
@@ -25,7 +26,7 @@ const getWeatherDay = async (city) => {
 			timeout: 10000,
 		});
 		console.log('Weather API day response:', response.data); // Log the entire response data for debugging
-		return normalizeWeather(response.data);
+		return normalizeWeatherDay(response.data);
 	} catch (error) {
 		throw new Error(error.response?.data?.message || 'Weather fetch failed');
 	}
@@ -48,7 +49,7 @@ const getWeatherForecast = async (city) => {
 			timeout: 10000,
 		});
 		console.log('Weather API forecast response:', response.data); // Log the entire response data for debugging
-		return normalizeWeather(response.data);
+		return normalizeWeatherForecast(response.data);
 	} catch (error) {
 		throw new Error(error.response?.data?.message || 'Weather fetch failed');
 	}

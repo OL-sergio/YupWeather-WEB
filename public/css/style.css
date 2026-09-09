@@ -54,13 +54,15 @@ h1 {
 .search-form label {
 	display: block;
 	margin-bottom: 0.5rem;
-	font:
-		700 0.85rem Arial,
-		sans-serif;
+	margin: 0 0 1rem 0;
 }
 .search-row {
 	display: flex;
 	gap: 0.6rem;
+}
+
+.city-text {
+	margin: 2rem 0 0 0;
 }
 
 input,
@@ -147,8 +149,11 @@ button {
 }
 
 .divider {
-	width: 200;
-	margin: 6rem 0;
+	height: 12vh;
+}
+
+form {
+	margin-top: 2rem;
 }
 
 .search-container {
@@ -183,6 +188,40 @@ button {
 	border-radius: 2.5rem;
 	padding: 4rem 0;
 	width: 50%;
+}
+
+.forecast-data {
+	margin: 0 1cm 1rem 0;
+	text-transform: uppercase;
+}
+
+.forecast {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	gap: 0;
+	margin: 3rem 0 0 0;
+	padding: 0;
+}
+
+.forecast-icon {
+	width: 3rem;
+	height: 3rem;
+	object-fit: contain;
+}
+
+.forecast-day {
+	padding: 1.5rem;
+	height: 18vh;
+	align-self: center;
+	background: #272e37;
+	gap: 0rem;
+	border-radius: 1rem;
+}
+
+.forecast-day:first-child {
+	background: var(--ink);
+	color: #222831;
 }
 
 @media (max-width: 800px) {

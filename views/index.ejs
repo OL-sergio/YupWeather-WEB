@@ -9,20 +9,30 @@
 	<body>
 		<main class="weather-app">
 			<div class="search-container">
-				<p class="prediction">prediction</p>
-				<p class="humidity">humidity</p>
-				<p class="wind">wind</p>
+				<p class="forecast-data">Feels like: <%= weather?.feelsLike %> C</p>
+				<p class="forecast-data">Humidity: <%= weather?.humidity %>%</p>
+				<p class="forecast-data">Wind: <%= weather?.wind %> m/s</p>
 
 				<div class="forecast">
+					<% if (forecast && forecast.list && forecast.list.length) { %> <%
+					forecast.list.slice(0, 4).forEach((item) => { %>
 					<div class="forecast-day">
-						<p class="day">day</p>
-						<image class="icon" src="" alt="Weather icon" />
-						<p class="temperature">temperature</p>
+						<% if (item.weather[0]?.icon) { %>
+						<img
+							class="forecast-icon"
+							src="https://openweathermap.org/img/wn/<%= item.weather[0].icon %>@2x.png"
+							alt="<%= item.weather[0].description || 'Weather icon' %>"
+						/>
+						<p class="forecastdt"><%= item.dt %></p>
+						<% } %>
+						<p class="forecastTemperature"><%= item.temp %>°C</p>
 					</div>
+					<% }) %> <% } %>
 				</div>
 
 				<form action="/" method="get" class="search-form">
-					<label for="city">Search by city</label>
+					
+					<p />
 					<div class="search-row">
 						<input
 							id="city"
@@ -44,7 +54,7 @@
 					<p class="date"><%= weather.date %></p>
 					<p class="location">
 						<img class="location-icon" src="/images/pin.png" alt="" />
-						<%= weather.city %> <% if (weather.country) { %> , <%=weather.country
+						<%=weather.city %> <% if (weather.country) { %> , <%=weather.country
 						%> <% } %>
 					</p>
 
