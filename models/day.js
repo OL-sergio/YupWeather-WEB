@@ -47,7 +47,7 @@ const normalizeWeatherDay = (data = {}) => {
 			: 'Unavailable',
 		country: data.sys?.country ?? 'Unavailable',
 		temperature: formatTemp(data.main?.temp),
-		feelsLike: data.main?.feels_like ?? 'Unavailable',
+		feelsLike: formatTemp(data.main?.feels_like),
 		humidity: data.main?.humidity ?? 'Unavailable',
 		pressure: data.main?.pressure ?? 'Unavailable',
 		description: data.weather?.[0]?.description ?? 'Unavailable',

@@ -9,10 +9,21 @@
 	<body>
 		<main class="weather-app">
 			<div class="search-container">
-				<p class="forecast-data">Feels like: <%= weather?.feelsLike %> C</p>
-				<p class="forecast-data">Humidity: <%= weather?.humidity %>%</p>
-				<p class="forecast-data">Wind: <%= weather?.wind %> m/s</p>
+				<p class="forecast-data">
+					Feels like:<span class="forecast-feels-like">
+						<%= weather?.feelsLike %> C</span
+					>
+				</p>
 
+				<p class="forecast-data">
+					Humidity:<span class="forecast-humidity"
+						><%= weather?.humidity %>%</span
+					>
+				</p>
+				<p class="forecast-data">
+					Wind:<span class="forecast-wind"><%= weather?.wind %> m/s</span>
+				</p>
+				<div  class="divider-forecast"></div>
 				<div class="forecast">
 					<% if (forecast && forecast.list && forecast.list.length) { %> <%
 					forecast.list.slice(0, 4).forEach((item) => { %>
@@ -23,17 +34,24 @@
 							src="https://openweathermap.org/img/wn/<%= item.weather[0].icon %>@2x.png"
 							alt="<%= item.weather[0].description || 'Weather icon' %>"
 						/>
-						<p class="forecastdt"><%= item.dt %></p>
+						<p class="forecast-dt"><%= item.dt %></p>
 						<% } %>
-						<p class="forecastTemperature"><%= item.temp %>°C</p>
+						<p class="forecast-temperature"><%= item.temp %>°C</p>
 					</div>
 					<% }) %> <% } %>
 				</div>
 
 				<form action="/" method="get" class="search-form">
-					
-					<p />
-					<div class="search-row">
+					<button
+						class="search-information"
+						type="button"
+						aria-expanded="false"
+						aria-controls="search-row"
+					>
+						<img class="location-icon" src="/images/pin.png" />
+						Change Location
+					</button>
+					<div class="search-row" id="search-row" hidden>
 						<input
 							id="city"
 							name="city"
@@ -41,7 +59,7 @@
 							placeholder="e.g. Lisbon"
 							required
 						/>
-						<button type="submit">Search</button>
+						<button class="search-button" type="submit">Search</button>
 					</div>
 				</form>
 			</div>
@@ -76,5 +94,6 @@
 				<% } %>
 			</div>
 		</main>
+		<script src="/js/cliente.js"></script>
 	</body>
 </html>
