@@ -28,7 +28,7 @@ router.get('/', async (req, res) => {
 		});
 	} catch (err) {
 		res.status(502);
-		render('index', {
+		res.render('index', {
 			weather: null,
 			forecast: null,
 			error: err.message,

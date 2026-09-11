@@ -1,6 +1,8 @@
 const axios = require('axios');
 const { normalizeWeatherDay } = require('../models/day');
-const { normalizeWeatherForecast } = require('../models/forecast');
+const {
+	normalizeWeatherForecast
+} = require('../models/forecast');
 
 //https://api.openweathermap.org/data/2.5/forecast?q={city name}&appid={API key}
 //https://api.openweathermap.org/data/2.5/weather?q={city name}&appid={API key}
@@ -33,7 +35,6 @@ const getWeatherDay = async (city) => {
 };
 
 const getWeatherForecast = async (city) => {
-
 	if (!API_KEY) {
 		throw new Error('Weather API key is not configured');
 	}

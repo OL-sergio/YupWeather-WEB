@@ -46,25 +46,46 @@ const formatTemp = (temp) => {
 	}
 };
 
+const filter12hForecast = (list = []) => {
+	if (!Array.isArray(list)) return [];
+	const filtered = list.filter((item = {}) => {
+		if (typeof item.dt_txt === 'string' && item.dt_txt !== 'Unavailable') {
+			return item.dt_txt.includes('12:00:00');
+		}
+		if (item.dt) {
+			const hours = new Date(item.dt * 1000).getUTCHours();
+			return hours === 12;
+		}
+		return false;
+	});
+
+	if (filtered.length === 0 && list.length > 0) {
+		return list.filter((_, index) => index % 4 === 0);
+	}
+
+	return filtered;
+};
+
 const normalizeWeatherForecast = (data = {}) => {
+	const rawList = Array.isArray(data.list) ? data.list : [];
+	const filteredList = filter12hForecast(rawList);
+
 	return {
 		...data,
-		list: Array.isArray(data.list)
-			? data.list.map((item = {}) => ({
-					...item,
-					dt: formatDay(item.dt),
-					main: item.main ?? {},
-					temp: formatTemp(item.main?.temp),
-					weather: item.weather ?? [],
-					clouds: item.clouds ?? {},
-					wind: item.wind ?? {},
-					visibility: item.visibility ?? 'Unavailable',
-					pop: item.pop ?? 'Unavailable',
-					sys: item.sys ?? {},
-					dt_txt: item.dt_txt ?? 'Unavailable',
-				}))
-			: [],
+		list: filteredList.map((item = {}) => ({
+			...item,
+			dt: formatDay(item.dt),
+			main: item.main ?? {},
+			temp: formatTemp(item.main?.temp),
+			weather: item.weather ?? [],
+			clouds: item.clouds ?? {},
+			wind: item.wind ?? {},
+			visibility: item.visibility ?? 'Unavailable',
+			pop: item.pop ?? 'Unavailable',
+			sys: item.sys ?? {},
+			dt_txt: item.dt_txt ?? 'Unavailable',
+		})),
 	};
 };
 
-module.exports = { normalizeWeatherForecast };
+module.exports = { normalizeWeatherForecast, filter12hForecast };

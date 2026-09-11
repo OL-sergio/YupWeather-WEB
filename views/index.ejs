@@ -4,6 +4,13 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>YupWeather</title>
+		<script type="importmap">
+			{
+				"imports": {
+					"animejs": "https://cdn.jsdelivr.net/npm/animejs@4.5.0/+esm"
+				}
+			}
+		</script>
 		<link rel="stylesheet" href="/css/style.css" />
 	</head>
 	<body>
@@ -11,19 +18,19 @@
 			<div class="search-container">
 				<p class="forecast-data">
 					Feels like:<span class="forecast-feels-like">
-						<%= weather?.feelsLike %> C</span
+						<%= weather?.feelsLike %> °C</span
 					>
 				</p>
 
 				<p class="forecast-data">
 					Humidity:<span class="forecast-humidity"
-						><%= weather?.humidity %>%</span
+						><%= weather?.humidity %> %</span
 					>
 				</p>
 				<p class="forecast-data">
 					Wind:<span class="forecast-wind"><%= weather?.wind %> m/s</span>
 				</p>
-				<div  class="divider-forecast"></div>
+				<div class="divider-forecast"></div>
 				<div class="forecast">
 					<% if (forecast && forecast.list && forecast.list.length) { %> <%
 					forecast.list.slice(0, 4).forEach((item) => { %>
@@ -35,10 +42,10 @@
 							alt="<%= item.weather[0].description || 'Weather icon' %>"
 						/>
 						<p class="forecast-dt"><%= item.dt %></p>
-						<% } %>
-						<p class="forecast-temperature"><%= item.temp %>°C</p>
+						<% }; %>
+						<p class="forecast-temperature"><%= item.temp %> °C</p>
 					</div>
-					<% }) %> <% } %>
+					<% }); %> <% }; %>
 				</div>
 
 				<form action="/" method="get" class="search-form">
@@ -84,7 +91,7 @@
 						alt="<%= weather.description %>"
 					/>
 					<% } %>
-					<p class="temperature"><%= weather.temperature %>°C</p>
+					<p class="temperature"><%= weather.temperature %> °C</p>
 					<p class="condition" alt="Weather condition">
 						<%= weather.description %>
 					</p>
@@ -95,5 +102,6 @@
 			</div>
 		</main>
 		<script src="/js/cliente.js"></script>
+		<script type="module" src="/js/anime.js"></script>
 	</body>
 </html>
