@@ -5,17 +5,10 @@ const {
 	getWeatherForecast,
 } = require('../services/weatherService');
 
-router.get('/', async (req, res) => {
-	const city = String(req.query.city || '').trim();
+const DEFAULT_CITY = 'Lisbon';
 
-	if (!city) {
-		return res.render('index', {
-			weather: null,
-			forecast: null,
-			error: null,
-			city: '',
-		});
-	}
+router.get('/', async (req, res) => {
+	const city = String(req.query.city || '').trim() || DEFAULT_CITY;
 
 	try {
 		const dayData = await getWeatherDay(city);
